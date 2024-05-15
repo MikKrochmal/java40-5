@@ -6,9 +6,9 @@ Kod bazowy programu Commit4_0:
 • Klasa Service obsługuje odczyt i zapis do pliku bazy danych.
 • Klasa Student reprezentuje pojedynczego studenta (Imię, Wiek).
 */
-
+import java.util.Scanner;
 import java.io.IOException;
-
+import java.util.List;
 class Main 
 {
   public static void main(String[] args) 
@@ -16,10 +16,11 @@ class Main
     try 
       {
         Service s = new Service();        
-        s.addStudent(new Student("Krzysztof", 20));
-        s.addStudent(new Student("Janusz", 40));
+        s.addStudent(new Student("Krzysztof", 20,"Kowalski"));
+        s.addStudent(new Student("Janusz", 40, "KUźmowski"));  
         Scanner scanner = new Scanner(System.in);
         int wybor=0;
+        Scanner input = new Scanner(System.in);
         while(wybor >0 || wybor <3)
           {
             System.out.println("wybierz akcję którą chcesz wykonać");
@@ -32,20 +33,22 @@ class Main
         {
         case 1:
             {
+               
               System.out.println("Podaj imię studenta");
-              String imie=scanner.nextLine();
+              String imie = input.next();
               System.out.println("Podaj wiek studenta");
-              int wiek=scanner.nextInt();
-              s.addStudent(new Student(imie, wiek));
+              int wiek= input.nextInt();
+              System.out.println("Podaj nazwisko studenta");
+              String nazwisko=input.next();
+              s.addStudent(new Student(imie, wiek, nazwisko));
               break;
             }
           case 2:
             {
-              var students=s.getStudents();
-              for(Student current:students)
-                {
-                  System.out.println(current.ToString());
-                }
+              List<Student> students = (List<Student>) s.getStudents();
+              for(Student current: students) {
+                System.out.println(current.ToString());
+              }
               break;
             }
           case 0:
@@ -59,11 +62,9 @@ class Main
               break;
             }
         }
-        }
+      }
 
-    } catch (IOException e) {
-      // Handle exception here
-    }
+    } catch (IOException e) {}
 
 
   }
